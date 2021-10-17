@@ -1,0 +1,1 @@
+<?php	if ($_SESSION[$project_pre]['type']!='superadmin'){ header("Location:index.php?error_message=Only Super Admin has the rights to access Admnistration Module.");}
