@@ -923,11 +923,30 @@
 		********************************/
 		function drawNotPublishedEditDelete($module, $id, $publish, $edit, $delete){
 			$string = '';
+      $mysqli = $GLOBALS['DB']['MSQLI'];
+      /*$result = $mysqli->query("SELECT * FROM `mt_employees_sims` WHERE sim_id='$id'");
+      $row = $result->fetch_row();
+      $rcount=$row->count();
+     $result = $mysqli->query("SELECT COUNT(*) FROM `mt_employees_sims` WHERE sim_id='$id'");
+     $row = $result->fetch_row();
+     */
+     $result = $mysqli->query("SELECT COUNT(*) FROM `mt_employees_sims` WHERE sim_id='$id'");
+     $row = $result->fetch_row();
+     $rcount = $row[0];
+     //$rcount=0;
+     // $simId=$row['sim_id'];
+      if($rcount>0){
 
 			if ($publish==1) 	$string .= '<a href="listing_'.$module.'.php?action=publish_'.$module.'&id='.$id.'" title="UnPublished"><i class="icon-cross3"></i></a>&nbsp;';
-			if ($edit==1) 		$string .= '<a href="'.$module.'.php?action=edit_'.$module.'&id='.$id.'" title="Edit"><i class=" icon-pencil3"></i></a>&nbsp;';
+			if ($edit==1) 		$string .= '<input disabled value="'.$id.'" type="checkbox" name="all_sims" class="all_sims"> <a href="'.$module.'.php?action=edit_'.$module.'&id='.$id.'" title="Edit"><i class=" icon-pencil3"></i></a>&nbsp;';
 			if ($delete==1) 	$string .= '<a href="#" data-href="listing_'.$module.'.php?action=delete_'.$module.'&id='.$id.'" data-toggle="modal" data-target="#confirm-delete" title="Delete"><i class="icon-trash"></i></a>';
+      } 
+      else{
+        if ($publish==1)  $string .= '<a href="listing_'.$module.'.php?action=publish_'.$module.'&id='.$id.'" title="UnPublished"><i class="icon-cross3"></i></a>&nbsp;';
+      if ($edit==1)     $string .= '<input value="'.$id.'" type="checkbox" name="all_sims" class="all_sims"> <a href="'.$module.'.php?action=edit_'.$module.'&id='.$id.'" title="Edit"><i class=" icon-pencil3"></i></a>&nbsp;';
+      if ($delete==1)   $string .= '<a href="#" data-href="listing_'.$module.'.php?action=delete_'.$module.'&id='.$id.'" data-toggle="modal" data-target="#confirm-delete" title="Delete"><i class="icon-trash"></i></a>';
 
+    }  
 			return $string;
 		}
 

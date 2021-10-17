@@ -670,7 +670,9 @@ switch ($ajax_action) {
       
       $vs=getTableAttrWhere("id", $tbl_prefix . 'employees_sims','sim_id', $id);
       if($vs<0 || $vs==null){
-      $nestedData[] = '<strong>'. $sim_number. '</strong> &nbsp; &nbsp; <a href="assign_sim.php?id='.$id.'"><span class="label label-success">ASSIGN</span></a>';}else {
+      $nestedData[] = '<strong>'. $sim_number. '</strong> &nbsp; &nbsp; <a href="assign_sim.php?id='.$id.'"><span class="label label-success">ASSIGN</span></a>';
+    }
+      else {
            $employee_id=getTableAttrWhere("employee_id", $tbl_prefix . 'employees_sims','sim_id', $id);
            
            $employee_name=getTableAttrWhere("employee_name", $tbl_prefix . 'employees','id', $employee_id);
